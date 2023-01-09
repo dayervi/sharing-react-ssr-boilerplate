@@ -1,0 +1,51 @@
+
+.rm-char-list, .rm-loc-list {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.rm-char-list > li, .rm-loc-list > li {
+  flex: 0 0 100%;
+  font-family: "Rubik", sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.a-char {
+  position: relative;
+  display: flex;
+  img { width: 100%; }
+  .name {
+    position: absolute;
+    display: block;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 .5rem;
+    background: darkslategrey;
+    line-height: 3;
+    color: wheat;
+  }
+}
+
+.a-loc {
+  box-sizing: border-box;
+  line-height: 3;
+  padding: 0 .5rem;
+  background: lightgray;
+}
+
+@media (min-width: 576px) {
+  .rm-char-list > li { flex: 0 0 calc(50% - .5rem / 2); }
+}
+
+@media (min-width: 768px) {
+  .rm-char-list > li { flex: 0 0 calc(33% - 2 * .5rem / 3); }
+  .rm-loc-list > li { flex: 0 0 calc(50% - .5rem / 2); }
+}
+
+@media (min-width: 992px) {
+  .rm-char-list > li { flex: 0 0 calc(25% - 3 * .5rem / 4); }
+}
+

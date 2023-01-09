@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "jsx": "react",
+    "baseUrl": ".src/",
+    "outDir": "./dist",
+    "paths": {
+      "@app/*": [ "./app/*", "./assets/*", "./scss/" ]
+    }
+  },
+  "include": [ "src/**/*" ],
+  "exclude": [ "node_modules" ]
+}

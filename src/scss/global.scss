@@ -1,0 +1,28 @@
+@import "normalize.css/normalize.css";
+
+body {
+  font-size: 16px;
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 .5rem;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.icon.icon-tabler.icon-tabler-loader {
+  display: block;
+  margin: 0 auto;
+  width: 2rem;
+  height: 2rem;
+  stroke-width: 2.25px;
+  color: lightgray;
+  animation: rotate 1.5s infinite linear;
+}
