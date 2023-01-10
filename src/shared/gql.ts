@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch";
-import {ApolloClient, ApolloClientOptions, concat, createHttpLink, HttpLink, InMemoryCache} from "@apollo/client";
+import {ApolloClient, ApolloClientOptions, createHttpLink, HttpLink, InMemoryCache} from "@apollo/client";
 
 export const APOLLO_CACHE_SCRIPT_ID = "apollo-state";
 

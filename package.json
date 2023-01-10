@@ -6,7 +6,7 @@
     "clean": "rimraf ./dist",
     "watch": "webpack --watch",
     "build": "npm run clean && webpack",
-    "serve:local": "node dist/server.js"
+    "serve:local": "node -r dotenv/config dist/server.js"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",

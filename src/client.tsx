@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {loadableReady} from "@loadable/component";
-import buildApolloClient, {APOLLO_CACHE_SCRIPT_ID} from "./shared/gql";
 import {ApolloProvider} from "@apollo/client";
 import {BrowserRouter} from "react-router-dom";
 import {hydrateRoot} from "react-dom/client";
+import buildApolloClient, {APOLLO_CACHE_SCRIPT_ID} from "./shared/gql";
 import "./scss/global.scss";
 import App from "./app/app";
 
