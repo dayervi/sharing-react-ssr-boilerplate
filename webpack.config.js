@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const dotenvWebpack = require("dotenv-webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const nodeExternals = require("webpack-node-externals");
+const webpack = require("webpack");
 const LoadablePlugin = require("@loadable/webpack-plugin");
 const NodemonPlugin = require("nodemon-webpack-plugin");
 
@@ -77,6 +78,7 @@ const server = (env) => ({
   ...baseConfig(true),
   externals: [ nodeExternals({ modulesDir: NODE_MODULES_PATH }) ],
   plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
     ...runnableServer(env.WEBPACK_WATCH)
   ]
 });
