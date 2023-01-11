@@ -1,7 +1,11 @@
 import React from "react";
-import FakeComponent from "./components/loadable-demo";
-import {ClientOnlyGQLExample, GQLExample} from "./components/gql-exemple";
-import logo from "../assets/fake-logo.png";
+import {Route, Routes} from "react-router";
+import {NavLink} from "react-router-dom";
+import classNames from "classnames";
+import Home from "./pages/home";
+import Other from "./pages/other";
+import NotFound from "./pages/not-found";
+import logo from "./assets/fake-logo.png";
 import "./app.scss";
 
 const App = () => {
@@ -10,19 +14,25 @@ const App = () => {
     <>
       <header>
         <img src={logo} />
+        <nav>
+          <ul>
+            <li>
+              <NavLink className={({ isActive}) => classNames({ "active" : isActive })}
+                       to="">Home</NavLink>
+            </li>
+            <li>
+              <NavLink className={({ isActive}) => classNames({ "active" : isActive })}
+                       to="page">Page</NavLink>
+            </li>
+          </ul>
+        </nav>
       </header>
       <main>
-        <section>
-          <FakeComponent />
-        </section>
-        <section>
-          <h1>GQL query example (ssr compatible)</h1>
-          <GQLExample />
-        </section>
-        <section>
-          <h1>GQL query example (client only)</h1>
-          <ClientOnlyGQLExample />
-        </section>
+        <Routes>
+          <Route index={true} path="" element={<Home />} />
+          <Route path="page" element={<Other />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
       <footer>
         <img src={logo} />

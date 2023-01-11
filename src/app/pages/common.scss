@@ -1,0 +1,18 @@
+h1 {
+  margin: 2rem 0;
+  font-family: "Rubik", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+main section {
+  margin: 1rem 0 2rem;
+  &:first-of-type { margin-top: 0; }
+  &:last-of-type { margin-bottom: 0; }
+
+  h1 {
+    margin: 0 0 .5rem 0;
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+}

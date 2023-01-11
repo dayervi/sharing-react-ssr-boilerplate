@@ -1,13 +1,13 @@
 import path from "path";
 import express from "express";
 import React from "react";
+import {getDataFromTree, renderToStringWithData} from "@apollo/client/react/ssr";
 import {renderToString} from "react-dom/server";
 import {StaticRouter} from "react-router-dom/server";
 import {ChunkExtractor} from "@loadable/server";
-import App from "./app/app";
-import buildApolloClient, {APOLLO_CACHE_SCRIPT_ID} from "./shared/gql";
 import {ApolloProvider} from "@apollo/client";
-import {getDataFromTree, renderToStringWithData} from "@apollo/client/react/ssr";
+import buildApolloClient, {APOLLO_CACHE_SCRIPT_ID} from "./shared/gql";
+import App from "./app/app";
 
 const SERVER_PORT = +process.env.PORT! || 4200;
 const app = express();
@@ -15,7 +15,7 @@ const loadablePath = path.join(__dirname, "loadable-stats.json");
 
 app.disable("x-powered-by");
 app.use("/assets", express.static(path.resolve(__dirname, "assets")));
-app.use("/static", express.static(path.resolve(__dirname, "static")));
+app.use(express.static(path.resolve(__dirname, "public")));
 
 app.get("*", async (req, res) => {
 
@@ -33,8 +33,8 @@ app.get("*", async (req, res) => {
     </ApolloProvider>);
 
   await getDataFromTree(wrapper);
-  const jsx = chunkExtractor.collectChunks(wrapper);
   const apolloState = apolloClient.extract();
+  const rendering = await renderToStringWithData(wrapper);
 
   res.set("content-type", "text/html");
   res.send(`
@@ -49,7 +49,7 @@ app.get("*", async (req, res) => {
       ${chunkExtractor.getStyleTags()}
     </head>
     <body>
-      <div id="app">${renderToString(jsx)}</div>
+      <div id="app">${rendering}</div>
       <script id="${APOLLO_CACHE_SCRIPT_ID}">window.__APOLLO_STATE__= ${JSON.stringify(JSON.stringify(apolloState))};</script>
       ${chunkExtractor.getScriptTags()}
     </body>

@@ -3,8 +3,8 @@ const dotenv = require("dotenv");
 const dotenvWebpack = require("dotenv-webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const nodeExternals = require("webpack-node-externals");
-const webpack = require("webpack");
 const LoadablePlugin = require("@loadable/webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const NodemonPlugin = require("nodemon-webpack-plugin");
 
 const NODE_MODULES_PATH = path.resolve(__dirname, "node_modules");
@@ -55,6 +55,7 @@ const client = {
   mode: "development",
   target: "web",
   entry: "./src/client.tsx",
+  devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "dist", "assets")
   },
@@ -78,7 +79,7 @@ const server = (env) => ({
   ...baseConfig(true),
   externals: [ nodeExternals({ modulesDir: NODE_MODULES_PATH }) ],
   plugins: [
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new CopyWebpackPlugin({ patterns: [ { from: "./src/public", to: "./public" } ] }),
     ...runnableServer(env.WEBPACK_WATCH)
   ]
 });

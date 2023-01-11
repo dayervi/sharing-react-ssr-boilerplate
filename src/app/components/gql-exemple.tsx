@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {gql, useQuery} from "@apollo/client";
 import {IconLoader} from "@tabler/icons";
 import "./gql-example.scss";
@@ -17,19 +17,19 @@ const LOCATIONS = gql`
 
 export const GQLExample = () => {
 
-  const [ characters, setCharacters ] = useState<any[]>([]);
+  const { loading, data } = useQuery(CHARACTERS);
 
-  useQuery(CHARACTERS, {
-    onCompleted: ({ characters }) => setCharacters(characters.results.slice(0, 4))
-  });
+  if (loading) return <IconLoader />;
 
-  return (<ul className="rm-char-list">
-    {characters.map(char =>
-      <li key={char.id} className="a-char">
-        <img src={char.image} alt={char.name} />
-        <span className="name">{char.name}</span>
-      </li>)}
-  </ul>);
+  return (
+    <ul className="rm-char-list">
+      {data.characters.results.slice(0, 4).map(char =>
+        <li key={char.id} className="a-char">
+          <img src={char.image} alt={char.name} />
+          <span className="name">{char.name}</span>
+        </li>)
+      }
+    </ul>);
 
 }
 
@@ -41,10 +41,11 @@ export const ClientOnlyGQLExample = () => {
 
   if (loading) return <IconLoader />
 
-  return (<ul className="rm-loc-list">
-    {data.locations.results.map(loc =>
-      <li key={loc.id} className="a-loc">{loc.name} ({loc.type})</li>)
-    }
-  </ul>);
+  return (
+    <ul className="rm-loc-list">
+      {data.locations.results.map(loc =>
+        <li key={loc.id} className="a-loc">{loc.name} ({loc.type})</li>)
+      }
+    </ul>);
 
 }

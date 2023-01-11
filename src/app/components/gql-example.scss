@@ -1,3 +1,4 @@
+@import "../../scss/_includes";
 
 .rm-char-list, .rm-loc-list {
   display: flex;
@@ -15,6 +16,8 @@
 .a-char {
   position: relative;
   display: flex;
+  border-radius: 1rem;
+  overflow: hidden;
   img { width: 100%; }
   .name {
     position: absolute;
@@ -33,19 +36,18 @@
   box-sizing: border-box;
   line-height: 3;
   padding: 0 .5rem;
+  border-radius: .375rem;
   background: lightgray;
 }
 
-@media (min-width: 576px) {
+@include break-up(mobile) {
   .rm-char-list > li { flex: 0 0 calc(50% - .5rem / 2); }
 }
 
-@media (min-width: 768px) {
-  .rm-char-list > li { flex: 0 0 calc(33% - 2 * .5rem / 3); }
+@include break-up(tablet) {
   .rm-loc-list > li { flex: 0 0 calc(50% - .5rem / 2); }
 }
 
-@media (min-width: 992px) {
+@include break-up(desktop) {
   .rm-char-list > li { flex: 0 0 calc(25% - 3 * .5rem / 4); }
 }
-

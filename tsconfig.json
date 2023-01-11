@@ -12,10 +12,7 @@
     "noImplicitReturns": true,
     "jsx": "react",
     "baseUrl": ".src/",
-    "outDir": "./dist",
-    "paths": {
-      "@app/*": [ "./app/*", "./assets/*", "./scss/" ]
-    }
+    "outDir": "./dist"
   },
   "include": [ "src/**/*" ],
   "exclude": [ "node_modules" ]
