@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Other from "./pages/other";
 import NotFound from "./pages/not-found";
 import logo from "./assets/fake-logo.png";
+import "../scss/global.scss";
 import "./app.scss";
 
 const App = () => {

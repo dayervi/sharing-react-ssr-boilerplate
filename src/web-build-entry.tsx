@@ -1,10 +1,12 @@
+// @ts-ignore
+__webpack_public_path__ = window.__ASSETS_PATH__;
+
 import React, {useState} from "react";
 import {loadableReady} from "@loadable/component";
 import {ApolloProvider} from "@apollo/client";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter} from 'react-router-dom';
 import {hydrateRoot} from "react-dom/client";
 import buildApolloClient, {APOLLO_CACHE_SCRIPT_ID} from "./shared/gql";
-import "./scss/global.scss";
 import App from "./app/app";
 
 const Wrapper = () => {
@@ -19,11 +21,11 @@ const Wrapper = () => {
   return (
     <ApolloProvider client={apolloClient}>
       <BrowserRouter>
-        <App />
+        <App/>
       </BrowserRouter>
     </ApolloProvider>);
 
 }
 
 loadableReady(() =>
-  hydrateRoot(document.getElementById("app")!, <Wrapper />));
+  hydrateRoot(document.getElementById("app")!, <Wrapper/>));
