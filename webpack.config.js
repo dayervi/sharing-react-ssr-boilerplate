@@ -17,7 +17,7 @@ const runnableServer = (watchable) => {
 
 const baseConfig = (isNode) => ({
   resolve: {
-    extensions: [ ".ts", ".tsx" ],
+    extensions: [ ".ts", ".tsx", ".js", ".jsx", ".css", ".scss" ],
     modules: [
       path.resolve(__dirname, "src"),
       NODE_MODULES_PATH

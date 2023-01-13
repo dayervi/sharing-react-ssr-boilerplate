@@ -1,42 +1,61 @@
-import React from "react";
-import {Route, Routes} from "react-router";
-import {NavLink} from "react-router-dom";
+import React, {useContext} from "react";
 import classNames from "classnames";
-import Home from "./pages/home";
-import Other from "./pages/other";
-import NotFound from "./pages/not-found";
+import {Helmet} from "react-helmet-async";
+import {enabledLocales} from "../shared/locale";
+import {LocaleContext} from "./contexts/locale";
+import LocaleRoutes, {LocaleLangLink, LocaleLink, LocaleNavLink} from "./routes";
 import logo from "./assets/fake-logo.png";
 import "../scss/global.scss";
 import "./app.scss";
 
 const App = () => {
 
+  const { locale } = useContext(LocaleContext);
+  const allLocales = enabledLocales();
+
   return (
     <>
+      <Helmet>
+        <html lang={locale.code} />
+        <meta property="og:locale" content={locale.code} />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <header>
-        <img src={logo} />
+        <LocaleLink to="/">
+          <img src={logo}/>
+        </LocaleLink>
         <nav>
           <ul>
             <li>
-              <NavLink className={({ isActive}) => classNames({ "active" : isActive })}
-                       to="">Home</NavLink>
+              <LocaleNavLink className={({isActive}) => classNames({"active": isActive})}
+                             to="/">Home</LocaleNavLink>
             </li>
             <li>
-              <NavLink className={({ isActive}) => classNames({ "active" : isActive })}
-                       to="page">Page</NavLink>
+              <LocaleNavLink className={({isActive}) => classNames({"active": isActive})}
+                             to="page">Page</LocaleNavLink>
             </li>
           </ul>
         </nav>
       </header>
       <main>
-        <Routes>
-          <Route index={true} path="" element={<Home />} />
-          <Route path="page" element={<Other />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <LocaleRoutes/>
       </main>
       <footer>
-        <img src={logo} />
+        <LocaleLink to="/">
+          <img src={logo}/>
+        </LocaleLink>
+        {allLocales.length > 1 &&
+          <ul className="lang-switcher">
+            {enabledLocales().map(l =>
+              <li key={l.code}>
+                <LocaleLangLink to={l}
+                                {...(locale.code === l.code && { className: "active" })}>
+                  {l.basename.toUpperCase()}
+                </LocaleLangLink>
+              </li>)
+            }
+          </ul>
+        }
       </footer>
     </>);
 

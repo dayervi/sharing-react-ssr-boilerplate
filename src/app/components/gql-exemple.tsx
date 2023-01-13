@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import {gql, useQuery} from "@apollo/client";
 import {IconLoader} from "@tabler/icons";
 import "./gql-example.scss";
