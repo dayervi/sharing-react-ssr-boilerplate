@@ -1,0 +1,17 @@
+{
+  "cli-gql-example-title": {
+    "defaultMessage": "example de requête GQL (désactivation SSR)"
+  },
+  "nav-home-label": {
+    "defaultMessage": "Accueil"
+  },
+  "nav-page-label": {
+    "defaultMessage": "Page"
+  },
+  "ssr-gql-example-title": {
+    "defaultMessage": "exemple de requête GQL (compatible SSR)"
+  },
+  "ssr-loadable-label": {
+    "defaultMessage": "composant loadable (ignoré en SSR)"
+  }
+}

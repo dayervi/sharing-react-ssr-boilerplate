@@ -1,6 +1,17 @@
 import React, {Dispatch, ReactNode, SetStateAction, useMemo, useState} from "react";
 import * as moment from "moment";
+import {IntlProvider} from "react-intl";
 import {defaultLocale, Locale} from "../../shared/locale";
+import French from "../i18n/fr-CH.json";
+import English from "../i18n/en-GB.json";
+
+const getIntlMessages = (locale: Locale) => {
+  switch (locale.basename) {
+    case "fr": return French;
+    case "en": return English;
+    default: throw new Error(`missing translations for ${locale.code}`);
+  }
+}
 
 const localizeMomentJS = async (locale: Locale) => {
   switch (locale.code) {
@@ -48,7 +59,11 @@ const LocaleProvider = ({ locale: propsLocale, children }: LocaleContextProvider
 
   return (
     <LocaleContext.Provider value={value}>
-      {children}
+      <IntlProvider locale={locale.code}
+                    defaultLocale={defaultLocale.code}
+                    messages={getIntlMessages(locale)}>
+        {children}
+      </IntlProvider>
     </LocaleContext.Provider>
   );
 }

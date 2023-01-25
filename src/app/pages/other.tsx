@@ -1,18 +1,26 @@
 import React from "react";
+import {FormattedMessage, useIntl} from "react-intl";
+import {navTranslations, titleTranslations} from "../i18n/sharable-def";
 import {GQLExample} from "../components/gql-exemple";
 import "./common.scss";
-import {Helmet} from "react-helmet-async";
 
-const Other = () => (
-  <>
-    <Helmet>
-      <title>Page title</title>
-    </Helmet>
-    <h1>Page</h1>
-    <section>
-      <h1>GQL query example (ssr compatible)</h1>
-      <GQLExample />
-    </section>
-  </>);
+const Other = () => {
+
+  const intl = useIntl();
+
+  return (
+    <>
+      <h1>
+        <FormattedMessage {...navTranslations.page} />
+      </h1>
+      <section>
+        <h1>
+          <FormattedMessage {...titleTranslations.ssrGql} />
+        </h1>
+        <GQLExample />
+      </section>
+    </>);
+
+}
 
 export default Other;

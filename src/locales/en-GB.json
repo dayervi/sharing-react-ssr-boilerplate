@@ -1,0 +1,17 @@
+{
+  "cli-gql-example-title": {
+    "defaultMessage": "gql request example (disabled on SSR)"
+  },
+  "nav-home-label": {
+    "defaultMessage": "Home"
+  },
+  "nav-page-label": {
+    "defaultMessage": "Page"
+  },
+  "ssr-gql-example-title": {
+    "defaultMessage": "gql request example (SSR compatible)"
+  },
+  "ssr-loadable-label": {
+    "defaultMessage": "loadable component (ignored on SSR)"
+  }
+}
