@@ -2,7 +2,7 @@ import path from "path";
 import express from "express";
 import {createElement} from "react";
 import {ChunkExtractor} from "@loadable/server";
-import {getDataFromTree, renderToStringWithData} from "@apollo/client/react/ssr";
+import {getDataFromTree} from "@apollo/client/react/ssr";
 import {FilledContext} from "react-helmet-async";
 import {determineLocale} from "../shared/locale";
 import buildApolloClient, {APOLLO_CACHE_SCRIPT_ID} from "../shared/gql";
@@ -16,7 +16,8 @@ const nodeLoadablePath = path.join(__dirname, "node-loadable-stats.json");
 
 app.disable("x-powered-by");
 app.use(ASSET_PATH, express.static(path.resolve(__dirname, "assets")));
-app.use(express.static(path.resolve(__dirname, "public")));
+
+app.use(express.static(path.resolve(__dirname, "public"), { immutable: true, maxAge: 86400000 }))
 
 app.get("*", async(req, res) => {
 
@@ -32,9 +33,8 @@ app.get("*", async(req, res) => {
   const { default: App } = nodeExtractor.requireEntrypoint();
   const jsx = createElement(App as any, { locale, helmetContext, staticUrl: req.url, apolloClient });
 
-  await getDataFromTree(jsx);
+  const rendering = await getDataFromTree(jsx);
   const apolloState = apolloClient.extract();
-  const rendering = await renderToStringWithData(jsx);
   const { helmet } = helmetContext as FilledContext;
 
   res.set("content-type", "text/html");
@@ -46,7 +46,8 @@ app.get("*", async(req, res) => {
       ${helmet.title.toString()}
       ${helmet.meta.toString()}
       <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link rel="stylesheet" href="/fonts/fonts.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500&amp;display=swap">
       ${webExtractor.getLinkTags()}
       ${webExtractor.getStyleTags()}

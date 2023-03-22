@@ -8,6 +8,7 @@ const buildApolloClient = (ssrMode: boolean = false, restoringCache?: any) => {
   if (!!restoringCache) cache.restore(JSON.parse(restoringCache));
 
   return new ApolloClient({
+    ssrMode,
     link: ssrMode
       ? createHttpLink({ uri: process.env.GQL_CLIENT_URL, fetch })
       : new HttpLink({ uri: process.env.GQL_CLIENT_URL }),
